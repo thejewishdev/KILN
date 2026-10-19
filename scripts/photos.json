@@ -1,0 +1,202 @@
+{
+  "license": "All photos are from Pexels (https://www.pexels.com/license/): free for commercial use, no attribution required. Source pages are listed for reference and credit.",
+  "items": {
+    "burnt-honey-latte": {
+      "pexels": "https://www.pexels.com/photo/cup-of-latte-art-on-brown-wooden-table-12620633/",
+      "focus": [
+        0.42,
+        0.5
+      ],
+      "pick": [
+        0.42,
+        0.45
+      ]
+    },
+    "kiln-espresso": {
+      "pexels": "https://www.pexels.com/photo/white-ceramic-mug-and-saucer-685527/",
+      "focus": [
+        0.47,
+        0.5
+      ]
+    },
+    "cortado": {
+      "pexels": "https://www.pexels.com/photo/clear-drinking-glass-with-coffee-on-brown-wooden-table-4011869/",
+      "focus": [
+        0.5,
+        0.55
+      ],
+      "pick": [
+        0.5,
+        0.55
+      ]
+    },
+    "weekly-pour-over": {
+      "pexels": "https://www.pexels.com/photo/pour-over-coffee-with-ceramic-mug-on-wooden-table-29498509/",
+      "focus": [
+        0.42,
+        0.5
+      ]
+    },
+    "cold-brew": {
+      "pexels": "https://www.pexels.com/photo/refreshing-glass-of-iced-coffee-on-cafe-counter-28901490/",
+      "focus": [
+        0.45,
+        0.6
+      ]
+    },
+    "kiln-chai": {
+      "pexels": "https://www.pexels.com/photo/brown-cookies-on-the-plate-11833309/",
+      "focus": [
+        0.45,
+        0.42
+      ],
+      "pick": [
+        0.42,
+        0.38
+      ],
+      "lie": 0.62
+    },
+    "matcha-latte": {
+      "pexels": "https://www.pexels.com/photo/matcha-drink-in-brown-ceramic-mug-8474194/",
+      "focus": [
+        0.5,
+        0.6
+      ],
+      "pick": [
+        0.5,
+        0.6
+      ],
+      "trim_bottom": 0.16
+    },
+    "roasted-hojicha": {
+      "pexels": "https://www.pexels.com/photo/teacup-on-table-370018/",
+      "focus": [
+        0.32,
+        0.6
+      ]
+    },
+    "mountain-oolong": {
+      "pexels": "https://www.pexels.com/photo/tea-cup-and-teapot-15675493/",
+      "focus": [
+        0.5,
+        0.58
+      ],
+      "pick": [
+        0.36,
+        0.8
+      ]
+    },
+    "croissant": {
+      "pexels": "https://www.pexels.com/photo/close-up-photo-of-croissant-3892469/",
+      "focus": [
+        0.5,
+        0.45
+      ]
+    },
+    "cardamom-knot": {
+      "pexels": "https://www.pexels.com/photo/freshly-baked-cinnamon-roll-in-stockholm-street-31762658/",
+      "focus": [
+        0.45,
+        0.62
+      ]
+    },
+    "miso-cookie": {
+      "pexels": "https://www.pexels.com/photo/close-up-of-cookies-13921498/",
+      "focus": [
+        0.45,
+        0.68
+      ],
+      "lie": 0.75
+    },
+    "sourdough-toast": {
+      "pexels": "https://www.pexels.com/photo/close-up-shot-of-a-bread-with-butter-4109515/",
+      "focus": [
+        0.6,
+        0.42
+      ],
+      "lie": 0.68
+    }
+  },
+  "scenes": {
+    "scene-roaster": {
+      "pexels": "https://www.pexels.com/photo/man-operating-a-machine-at-a-coffee-roasting-factory-4816439/",
+      "focus": [
+        0.6,
+        0.5
+      ],
+      "aspect": [
+        3,
+        4
+      ],
+      "widths": [
+        560,
+        1000
+      ]
+    },
+    "scene-beans": {
+      "pexels": "https://www.pexels.com/photo/photo-of-coffee-roasting-4264047/",
+      "focus": [
+        0.55,
+        0.5
+      ],
+      "aspect": [
+        1,
+        1
+      ],
+      "widths": [
+        480,
+        900
+      ]
+    },
+    "scene-interior": {
+      "pexels": "https://www.pexels.com/photo/cozy-vintage-cafe-interior-with-brick-wall-29546529/",
+      "focus": [
+        0.5,
+        0.5
+      ],
+      "aspect": [
+        4,
+        5
+      ],
+      "widths": [
+        560,
+        1000
+      ]
+    },
+    "scene-bakery": {
+      "pexels": "https://www.pexels.com/photo/flowers-over-bread-in-bakery-15491577/",
+      "focus": [
+        0.5,
+        0.5
+      ],
+      "aspect": [
+        16,
+        9
+      ],
+      "widths": [
+        800,
+        1600
+      ]
+    },
+    "scene-night": {
+      "pexels": "https://www.pexels.com/photo/entrance-of-cafe-12973614/",
+      "focus": [
+        0.5,
+        0.38
+      ],
+      "aspect": [
+        4,
+        5
+      ],
+      "widths": [
+        560,
+        1000
+      ]
+    }
+  },
+  "table": {
+    "pexels": "https://www.pexels.com/photo/brown-wooden-panel-347139/",
+    "edge": 0.7,
+    "backdrop": "scene-bakery"
+  }
+}

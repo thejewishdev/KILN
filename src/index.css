@@ -1,0 +1,514 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #16100c;
+  --color-ink-2: #241a14;
+  --color-ink-3: #3a2c23;
+  --color-bone: #f3ece0;
+  --color-bone-2: #e9dfcf;
+  --color-paper: #fbf8f2;
+  --color-ember: #e2552d;
+  --color-ember-deep: #b93f1d;
+  --color-glow: #ff8a4c;
+  --color-honey: #f2b544;
+  --color-sage: #5f7d61;
+  --color-sage-soft: #cfe0cf;
+  --color-muted: #75685d;
+
+  --font-display: "Fraunces", "Iowan Old Style", Georgia, serif;
+  --font-sans: "Geist", ui-sans-serif, system-ui, -apple-system, sans-serif;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+
+/* Cross-document transitions between Home and Menu. Zero JS: the browser morphs matching names. */
+@view-transition {
+  navigation: auto;
+}
+::view-transition-group(*) {
+  animation-duration: 0.45s;
+  animation-timing-function: var(--ease-out);
+}
+::view-transition-old(root) {
+  animation: 0.25s ease both vt-fade-out;
+}
+::view-transition-new(root) {
+  animation: 0.35s var(--ease-out) both vt-fade-in;
+}
+@keyframes vt-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes vt-fade-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 12px, 0);
+  }
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 5.5rem;
+  }
+  body {
+    background: var(--color-bone);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-optical-sizing: auto;
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-ember);
+    outline-offset: 3px;
+    border-radius: 8px;
+  }
+  ::selection {
+    background: var(--color-ember);
+    color: var(--color-paper);
+  }
+  button {
+    cursor: pointer;
+  }
+}
+
+/* ——— Home hero: the turntable ——— */
+
+.spin {
+  animation: spin 48s linear infinite;
+  will-change: transform;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.glow {
+  animation: glow 5s ease-in-out infinite alternate;
+}
+@keyframes glow {
+  from {
+    opacity: 0.55;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+}
+
+.rise {
+  animation: rise 0.9s var(--ease-out) both;
+  animation-delay: calc(var(--d, 0) * 1ms);
+}
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 24px, 0);
+  }
+}
+
+.marquee {
+  animation: marquee 38s linear infinite;
+  will-change: transform;
+}
+.marquee-wrap:hover .marquee {
+  animation-play-state: paused;
+}
+@keyframes marquee {
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+/* Price ticks when it changes. The element is re-keyed on each change. */
+.tick {
+  display: inline-block;
+  animation: tick 0.4s var(--ease-spring);
+}
+@keyframes tick {
+  from {
+    transform: translate3d(0, -0.3em, 0) scale(0.92);
+    opacity: 0.3;
+  }
+}
+
+.pop {
+  animation: pop 0.45s var(--ease-spring);
+}
+@keyframes pop {
+  40% {
+    transform: scale(1.18);
+  }
+}
+
+.pin-ring {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: pin 2.6s ease-out infinite;
+}
+@keyframes pin {
+  from {
+    transform: scale(0.6);
+    opacity: 0.9;
+  }
+  to {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+/* Receipt with a torn bottom edge, drawn with a mask instead of an image. */
+.receipt {
+  --tooth: 14px;
+  mask:
+    linear-gradient(#000 0 0) top / 100% calc(100% - var(--tooth)) no-repeat,
+    conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) bottom / calc(var(--tooth) * 2) var(--tooth) repeat-x;
+}
+
+/* Long menu sections skip layout and paint until they approach the viewport. */
+.cv-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 900px;
+}
+
+/* Reveal a row (the ice picker) without measuring heights in JS. */
+.reveal {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition:
+    grid-template-rows 0.35s var(--ease-out),
+    opacity 0.25s ease,
+    margin 0.35s var(--ease-out);
+}
+.reveal[data-open="true"] {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+.reveal > * {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* ——— Sheets: side drawer on desktop, bottom sheet on phones ——— */
+
+html.sheet-open {
+  overflow: hidden;
+}
+.sheet-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+}
+.sheet-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgb(22 16 12 / 0.62);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.sheet-panel {
+  position: absolute;
+  inset: auto 0 0 0;
+  display: flex;
+  flex-direction: column;
+  height: min(94dvh, 56rem);
+  overflow: hidden;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  border-radius: 1.75rem 1.75rem 0 0;
+  outline: none;
+  box-shadow: 0 -20px 60px -20px rgb(0 0 0 / 0.5);
+  transform: translate3d(0, 100%, 0);
+  transition: transform 0.42s var(--ease-out);
+}
+.sheet-layer[data-shown="true"] .sheet-backdrop {
+  opacity: 1;
+}
+.sheet-layer[data-shown="true"] .sheet-panel {
+  transform: none;
+}
+@media (min-width: 768px) {
+  .sheet-panel {
+    inset: 0.75rem 0.75rem 0.75rem auto;
+    width: min(36rem, calc(100vw - 1.5rem));
+    height: auto;
+    border-radius: 1.75rem;
+    transform: translate3d(calc(100% + 1.5rem), 0, 0);
+  }
+}
+
+/* ——— Photography ——— */
+
+/* Static film grain, drawn once. Sits over photos so stock shots from different cameras feel like one roll.
+   In a layer so utilities like `absolute` still win over its `position: relative`. */
+@layer components {
+  .grain {
+    position: relative;
+    isolation: isolate;
+  }
+  .grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.16;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+}
+
+/* Slow push-in on hero photos. Transform only, so it runs on the compositor. */
+.drift {
+  animation: drift 22s ease-in-out infinite alternate;
+  will-change: transform;
+}
+@keyframes drift {
+  from {
+    transform: scale(1.04) translate3d(0, 0, 0);
+  }
+  to {
+    transform: scale(1.12) translate3d(-1.5%, -1%, 0);
+  }
+}
+
+.float {
+  animation: float 7s ease-in-out infinite alternate;
+}
+@keyframes float {
+  to {
+    transform: translate3d(0, -12px, 0);
+  }
+}
+
+/* ——— ELIS2code credit (same construction as the elisdevV1 wordmark) ——— */
+
+.elis2code {
+  font-family: "Bricolage Grotesque", "Arial Black", system-ui, sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  white-space: nowrap;
+}
+.elis2code__code {
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  color: #bdb3ff;
+}
+/* "S2": a red heart over the letters on a light fill, clipped to the text, so their tops read as a heart */
+.elis2code__heart {
+  background:
+    url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%2088%22%20preserveAspectRatio%3D%22none%22%3E%3Cpath%20fill%3D%22%23ff4d6d%22%20d%3D%22M50%2088C20%2065%200%2045%200%2025C0%2010%2012%200%2026%200C38%200%2046%207%2050%2016C54%207%2062%200%2074%200C88%200%20100%2010%20100%2025C100%2045%2080%2065%2050%2088Z%22/%3E%3C/svg%3E")
+      50% 50% / 100% 58% no-repeat,
+    linear-gradient(#ecebf3, #ecebf3);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  padding-right: 0.06em;
+  margin-right: -0.06em;
+}
+
+/* ——— Hero pour: one 9 s timeline. Cup slides in, shot pulls, cup fills, steams, slides out. ——— */
+
+.pour-cup,
+.pour-liquid,
+.pour-stream,
+.pour-ripple-wrap,
+.pour-steam {
+  animation: 9s var(--ease-out) infinite;
+  transform-box: fill-box;
+}
+.pour-cup {
+  animation-name: pour-cup;
+}
+@keyframes pour-cup {
+  0% {
+    transform: translate3d(-360px, 0, 0);
+    opacity: 0;
+  }
+  3% {
+    opacity: 1;
+  }
+  9%,
+  86% {
+    transform: none;
+    opacity: 1;
+  }
+  97% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(360px, 0, 0);
+    opacity: 0;
+  }
+}
+.pour-liquid {
+  animation-name: pour-liquid;
+  animation-timing-function: linear;
+}
+@keyframes pour-liquid {
+  0%,
+  16% {
+    transform: translate3d(0, 30px, 0);
+  }
+  66%,
+  100% {
+    transform: none;
+  }
+}
+.pour-stream {
+  animation-name: pour-stream;
+  transform-origin: 50% 0;
+}
+@keyframes pour-stream {
+  0%,
+  11% {
+    transform: scaleY(0);
+    opacity: 1;
+  }
+  17%,
+  64% {
+    transform: none;
+    opacity: 1;
+  }
+  72%,
+  100% {
+    transform: translate3d(0, 60px, 0) scaleY(0.3);
+    opacity: 0;
+  }
+}
+.pour-flow {
+  animation: pour-flow 0.55s linear infinite;
+}
+@keyframes pour-flow {
+  to {
+    stroke-dashoffset: -26;
+  }
+}
+.pour-ripple-wrap {
+  animation-name: pour-ripple-wrap;
+}
+@keyframes pour-ripple-wrap {
+  0%,
+  15%,
+  70%,
+  100% {
+    opacity: 0;
+  }
+  18%,
+  64% {
+    opacity: 1;
+  }
+}
+.pour-ripple {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: pour-ripple 0.9s ease-out infinite;
+}
+@keyframes pour-ripple {
+  from {
+    transform: scale(0.4);
+    opacity: 0.9;
+  }
+  to {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+.pour-steam {
+  opacity: 0.5;
+  animation-name: pour-steam;
+}
+@keyframes pour-steam {
+  0%,
+  66% {
+    opacity: 0;
+  }
+  76%,
+  84% {
+    opacity: 0.55;
+  }
+  96%,
+  100% {
+    opacity: 0;
+  }
+}
+.pour-wisp {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: pour-wisp 3.3s ease-in-out infinite;
+}
+@keyframes pour-wisp {
+  0% {
+    transform: translate3d(0, 14px, 0) scaleY(0.85);
+    opacity: 0;
+  }
+  35% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(6px, -26px, 0) scaleY(1.1);
+    opacity: 0;
+  }
+}
+
+/* Horizontal rail with snap points; native scrolling, no carousel library. */
+.rail {
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+}
+.rail::-webkit-scrollbar {
+  display: none;
+}
+.rail > * {
+  scroll-snap-align: start;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  @view-transition {
+    navigation: none;
+  }
+  /* Rest on a still frame mid-pour instead of the end of the loop (cup off-screen). */
+  .pour-cup,
+  .pour-liquid,
+  .pour-stream,
+  .pour-ripple-wrap,
+  .pour-steam,
+  .pour-flow,
+  .pour-wisp,
+  .pour-ripple {
+    animation: none !important;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
