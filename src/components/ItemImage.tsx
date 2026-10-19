@@ -1,5 +1,6 @@
 import type { CSSProperties } from "react";
 import tones from "../data/tones.json";
+import { BASE } from "../lib/paths";
 
 type Tone = keyof typeof tones;
 
@@ -8,7 +9,7 @@ const VARIANTS = {
   wide: { widths: [720, 1280], ratio: 10 / 16 },
 } as const;
 
-export const itemSrc = (id: string, variant: keyof typeof VARIANTS, w: number) => `/images/menu/${id}-${variant}-${w}.webp`;
+export const itemSrc = (id: string, variant: keyof typeof VARIANTS, w: number) => `${BASE}images/menu/${id}-${variant}-${w}.webp`;
 
 interface ItemProps {
   id: string;
@@ -71,8 +72,8 @@ export function SceneImage({
   const big = widths[widths.length - 1];
   return (
     <img
-      src={`/images/${name}-${big}.webp`}
-      srcSet={widths.map((w) => `/images/${name}-${w}.webp ${w}w`).join(", ")}
+      src={`${BASE}images/${name}-${big}.webp`}
+      srcSet={widths.map((w) => `${BASE}images/${name}-${w}.webp ${w}w`).join(", ")}
       sizes={sizes}
       width={big}
       height={Math.round(big * ratio)}

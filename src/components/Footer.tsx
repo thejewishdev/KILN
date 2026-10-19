@@ -1,5 +1,6 @@
 import { Elis2codeCredit } from "./Elis2code";
 import { KilnMark } from "./icons";
+import { HOME, MENU } from "../lib/paths";
 
 export function Footer() {
   return (
@@ -14,10 +15,10 @@ export function Footer() {
             Roasted and baked at 41 Potters Row since 2019.
           </div>
           <nav aria-label="Footer" className="flex gap-6">
-            <a href="/" className="transition-colors hover:text-bone">
+            <a href={HOME} className="transition-colors hover:text-bone">
               Home
             </a>
-            <a href="/menu/" className="transition-colors hover:text-bone">
+            <a href={MENU} className="transition-colors hover:text-bone">
               Menu
             </a>
             <a href="https://instagram.com" className="transition-colors hover:text-bone">

@@ -5,6 +5,7 @@ import { formatPrice } from "../../lib/price";
 import { ArrowIcon, KilnMark } from "../icons";
 import { ItemImage } from "../ItemImage";
 import { PourIllustration } from "./PourIllustration";
+import { MENU } from "../../lib/paths";
 
 const croissant = menuById["croissant"];
 const BADGE = "Fired slow ✺ Since 2019 ✺ Potters Row ✺ ";
@@ -40,7 +41,7 @@ export function Hero({ header }: { header: ReactNode }) {
           </p>
           <div className="rise mt-10 flex flex-wrap items-center gap-3" style={{ ["--d" as string]: 300 }}>
             <a
-              href="/menu/"
+              href={MENU}
               className="group inline-flex items-center gap-3 rounded-full bg-ember py-4 pl-7 pr-5 text-[1.05rem] font-semibold text-white shadow-[0_18px_40px_-14px_rgb(226_85_45/0.8)] transition-colors hover:bg-glow"
             >
               Order ahead
@@ -80,7 +81,7 @@ export function Hero({ header }: { header: ReactNode }) {
 
           {/* floating pastry card */}
           <a
-            href={`/menu/#${croissant.id}`}
+            href={`${MENU}#${croissant.id}`}
             className="float absolute -bottom-12 -right-3 flex items-center gap-3 rounded-[1.25rem] bg-bone p-2 pr-5 text-ink shadow-[0_24px_50px_-18px_rgb(0_0_0/0.7)] sm:-right-10"
           >
             <ItemImage id={croissant.id} variant="card" sizes="56px" className="h-16 w-14 rounded-xl" />

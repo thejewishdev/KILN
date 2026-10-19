@@ -1,4 +1,5 @@
 import { BagIcon, KilnMark } from "./icons";
+import { HOME, MENU } from "../lib/paths";
 
 export type Page = "home" | "menu";
 
@@ -10,8 +11,8 @@ interface Props {
 }
 
 const links: { page: Page; href: string; label: string }[] = [
-  { page: "home", href: "/", label: "Home" },
-  { page: "menu", href: "/menu/", label: "Menu" },
+  { page: "home", href: HOME, label: "Home" },
+  { page: "menu", href: MENU, label: "Menu" },
 ];
 
 export function Header({ page, tone, count, onOpenCart }: Props) {
@@ -22,7 +23,7 @@ export function Header({ page, tone, count, onOpenCart }: Props) {
       style={{ viewTransitionName: "site-header" }}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-4 sm:px-8 sm:py-5">
-        <a href="/" className="flex items-center gap-2.5" aria-label="Little Kiln home">
+        <a href={HOME} className="flex items-center gap-2.5" aria-label="Little Kiln home">
           <KilnMark className="h-8 w-8" />
           <span className="whitespace-nowrap font-display text-[1.45rem] font-semibold tracking-tight">Little Kiln</span>
         </a>
@@ -46,11 +47,11 @@ export function Header({ page, tone, count, onOpenCart }: Props) {
             })}
           </div>
           {page === "home" ? (
-            <a href="/menu/" className="rounded-full px-3 py-2 sm:hidden">
+            <a href={MENU} className="rounded-full px-3 py-2 sm:hidden">
               Menu
             </a>
           ) : (
-            <a href="/" className="rounded-full px-3 py-2 sm:hidden">
+            <a href={HOME} className="rounded-full px-3 py-2 sm:hidden">
               Home
             </a>
           )}

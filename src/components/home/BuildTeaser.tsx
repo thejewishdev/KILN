@@ -2,6 +2,7 @@ import { menuById } from "../../data/menu";
 import { describeSelection, formatDelta, formatPrice, unitPrice, type Selection } from "../../lib/price";
 import { ArrowIcon } from "../icons";
 import { ItemImage } from "../ItemImage";
+import { MENU } from "../../lib/paths";
 
 const item = menuById["burnt-honey-latte"];
 const sample: Selection = {
@@ -37,7 +38,7 @@ export function BuildTeaser() {
             ))}
           </ul>
           <a
-            href={`/menu/#${item.id}`}
+            href={`${MENU}#${item.id}`}
             className="group mt-10 inline-flex items-center gap-3 rounded-full bg-bone py-4 pl-7 pr-5 font-semibold text-ink transition-colors hover:bg-white"
           >
             Build this one

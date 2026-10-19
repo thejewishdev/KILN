@@ -7,6 +7,7 @@ import { ArrowIcon, CloseIcon, KilnMark, MinusIcon, PlusIcon } from "./icons";
 import { itemSrc } from "./ItemImage";
 import tones from "../data/tones.json";
 import { Sheet } from "./Sheet";
+import { MENU } from "../lib/paths";
 
 interface Props {
   open: boolean;
@@ -72,7 +73,7 @@ export default function CartSheet({ open, onClose, page }: Props) {
             <p className="font-display text-4xl font-medium tracking-tight">Nothing here yet</p>
             <p className="mt-3 max-w-[30ch] text-muted">Pick something from the menu, make it yours, and it will show up here for pickup.</p>
             <a
-              href="/menu/"
+              href={MENU}
               onClick={page === "menu" ? (e) => (e.preventDefault(), onClose()) : undefined}
               className="mt-7 inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3.5 font-medium text-bone transition-colors hover:bg-ember"
             >

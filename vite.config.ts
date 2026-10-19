@@ -2,7 +2,12 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 
+// "/" locally; the GitHub Pages workflow sets BASE_PATH=/<repo>/ because the site is served from a sub-folder.
+const env = (globalThis as { process?: { env: Record<string, string | undefined> } }).process?.env ?? {};
+const base = env.BASE_PATH ?? "/";
+
 export default defineConfig(({ isSsrBuild }) => ({
+  base,
   plugins: [react(), tailwindcss()],
   resolve: {
     // The code is written against React's API; Preact runs it with a ~4 KB runtime instead of ~60 KB.

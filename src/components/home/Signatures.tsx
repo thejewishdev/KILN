@@ -3,6 +3,7 @@ import { menuById } from "../../data/menu";
 import { formatPrice } from "../../lib/price";
 import { ArrowIcon } from "../icons";
 import { ItemImage } from "../ItemImage";
+import { MENU } from "../../lib/paths";
 
 const picks = [
   { id: "burnt-honey-latte", note: "The one everyone orders" },
@@ -36,7 +37,7 @@ export function Signatures() {
           <button type="button" onClick={() => scroll(1)} aria-label="Scroll forward" className="grid h-12 w-12 place-items-center rounded-full border border-ink/20 transition-colors hover:bg-ink hover:text-bone">
             <ArrowIcon className="h-5 w-5" />
           </button>
-          <a href="/menu/" className="ml-2 rounded-full bg-ink px-5 py-3 font-medium text-bone transition-colors hover:bg-ember">
+          <a href={MENU} className="ml-2 rounded-full bg-ink px-5 py-3 font-medium text-bone transition-colors hover:bg-ember">
             Full menu
           </a>
         </div>
@@ -49,7 +50,7 @@ export function Signatures() {
       >
         {picks.map(({ id, note, item }, i) => (
           <li key={id} className="w-[78vw] max-w-[22rem] shrink-0 sm:w-[22rem]">
-            <a href={`/menu/#${id}`} className="group block">
+            <a href={`${MENU}#${id}`} className="group block">
               <div className="relative overflow-hidden rounded-[2rem]">
                 <ItemImage
                   id={id}
